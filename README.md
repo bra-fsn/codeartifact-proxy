@@ -102,11 +102,33 @@ extra-index-url =
 The service includes a Dockerfile for containerized deployment:
 
 ```bash
-# Build the image
-docker build -t om-datasci-ca-proxy .
+# Build the image locally
+docker build -t codeartifact-proxy .
 
-# Run the container
-docker run -p 80:80 om-datasci-ca-proxy
+# Run the container with default settings
+docker run -p 80:80 codeartifact-proxy
+
+# Run with custom host and port
+docker run -p 8080:8080 -e PORT=8080 codeartifact-proxy
+
+# Run with environment variables
+docker run -p 8080:8080 \
+  -e LISTEN_ADDRESS=0.0.0.0 \
+  -e PORT=8080 \
+  -e DEBUG=true \
+  codeartifact-proxy
+```
+
+### Pre-built Images
+
+Pre-built Docker images are automatically available on GitHub Container Registry:
+
+```bash
+# Pull the latest image
+docker pull ghcr.io/bra-fsn/codeartifact-proxy:latest
+
+# Run the pre-built image
+docker run -p 80:80 ghcr.io/bra-fsn/codeartifact-proxy:latest
 ```
 
 ## Configuration
